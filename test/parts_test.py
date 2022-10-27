@@ -2,6 +2,7 @@
 # Docdocdoc Parts Unit Tests
 # =============================================================================
 from docdocdoc import get_function, template_params, template_references, template_return
+from pytest import raises
 
 
 def hello(name, city):
@@ -24,6 +25,9 @@ def hello(name, city):
 
 class TestTemplates(object):
     def test_basics(self):
+
+        with raises(TypeError):
+            get_function("bonjour")
 
         fn = get_function(hello)
 

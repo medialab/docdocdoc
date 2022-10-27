@@ -141,7 +141,7 @@ Function returning templated references.
 
 *Arguments*
 
-* **fn** *function* - a dict with the function documentation parts (returned by get_function).
+* **fn_doc** *dict* - a dict with the function documentation parts (returned by get_function).
 
 *Returns*
 

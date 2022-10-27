@@ -9,7 +9,7 @@ import re
 from docstring_parser.google import DEFAULT_SECTIONS, Section, SectionType
 from docstring_parser import parse as docstring_parser, DocstringStyle, DocstringMeta
 
-from utils import collapse
+from docdocdoc.utils import collapse
 
 DEFAULT_SECTIONS.append(Section("Article", "article", SectionType.SINGULAR))
 DEFAULT_SECTIONS.append(Section("References", "references", SectionType.MULTIPLE))
@@ -90,9 +90,12 @@ def get_function(fn):
         dict: dict with the different part of the documentation.
     """
 
+    if isinstance(fn, str) or not isinstance(fn.__doc__, str):
+        raise TypeError
+
     docstring = docstring_parser(fn.__doc__, DocstringStyle.GOOGLE)
 
-    fn_info = {
+    fn_doc = {
         "name": fn.__name__,
         "description": assembling_description(docstring),
         "article": get_article(docstring),
@@ -102,15 +105,15 @@ def get_function(fn):
         "returns": docstring.returns,
     }
 
-    return fn_info
+    return fn_doc
 
 
-def template_references(fn):
+def template_references(fn_doc):
     """
     Function returning templated references.
 
     Args:
-        fn (function): a dict with the function documentation parts (returned by get_function).
+        fn_doc (dict): a dict with the function documentation parts (returned by get_function).
 
     Returns:
         string: templated references.
@@ -118,7 +121,7 @@ def template_references(fn):
 
     lines = []
 
-    for ref in fn["references"]:
+    for ref in fn_doc["references"]:
         lines.append("- " + ref)
 
     return "\n".join(lines)
