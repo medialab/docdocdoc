@@ -21,9 +21,9 @@ def build_fn(fn):
     Function returning the function or class documentation written in Markdown.
 
     Args:
-        fn (str): str of the function's or class' name".
+        fn (str): str of the function or class name".
     Returns:
-        str: unction or class documentation written in Markdown.
+        str: function or class documentation written in Markdown.
     """
 
     lines = []
