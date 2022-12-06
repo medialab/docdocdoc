@@ -20,7 +20,27 @@ def hello(name, city):
     Returns:
         str: "hello from" city, followed by name.
     """
-    return "hello from {city}, {name}"
+    return f"hello from {city}, {name}"
+
+
+class Person:
+    """
+    A class to represent a person.
+
+    Args:
+        name (str): first name of the person. Defaults to ("Jean", "Baptiste").
+        surname (str): family name of the person.
+        age (int): age of the person. Prefer using `months` as unit.
+        opinion_on_cats_and_dogs (dict): whether the person likes cats and dogs. Defaults to {"cats": False, "dogs": True}.
+
+    """
+
+    def __init__(self, surname, age, name=("Jean", "Baptiste"), opinion_on_cats_and_dogs={"cats": False, "dogs": True}):
+
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.opinion_on_cats_and_dogs = opinion_on_cats_and_dogs
 
 
 class TestTemplates(object):
@@ -36,3 +56,12 @@ class TestTemplates(object):
         assert template_params(fn) == "* **name** *str* - string with the name you want to say hello to.\n* **city** *str* - string with the city you want to say hello from."
 
         assert template_return(fn) == "*str* - \"hello from\" city, followed by name."
+
+    def test_class(self):
+
+        my_class = get_function(Person)
+
+        assert template_params(my_class) == """* **name** *str* `("Jean", "Baptiste")` - first name of the person.
+* **surname** *str* - family name of the person.
+* **age** *int* - age of the person. Prefer using `months` as unit.
+* **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs."""

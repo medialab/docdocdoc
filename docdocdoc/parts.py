@@ -80,7 +80,7 @@ def assembling_description(docstring):
 
 def get_function(fn):
     """
-    Function returning a dict with the different part for a function documentation
+    Function returning a dict with the different part for a function (or class) documentation
     (i.e. name, description, article...).
 
     Args:

@@ -16,6 +16,46 @@ from docdocdoc.parts import (
 )
 
 
+def build_fn(fn):
+    """
+    Function returning the function or class documentation written in Markdown.
+
+    Args:
+        fn (str): str of the function's or class' name".
+    Returns:
+        str: unction or class documentation written in Markdown.
+    """
+
+    lines = []
+
+    fn_doc = get_function(fn)
+
+    lines.append("#### %s\n" % fn_doc["name"])
+    lines.append(fn_doc["description"])
+
+    if fn_doc["article"] is not None:
+        lines.append("\n*Article*")
+        lines.append("> " + fn_doc["article"])
+
+    if fn_doc["references"]:
+        lines.append("\n*References*\n")
+        lines.append(template_references(fn_doc))
+
+    for example in fn_doc["examples"]:
+        lines.append("\n```python")
+        lines.append(example.description)
+        lines.append("```")
+
+    lines.append("\n*Arguments*\n")
+    lines.append(template_params(fn_doc))
+
+    if fn_doc["returns"]:
+        lines.append("\n*Yields*\n" if fn_doc["returns"].is_generator else "\n*Returns*\n")
+        lines.append(template_return(fn_doc))
+
+    return "\n".join(lines)
+
+
 def build_toc(data):
     """
     Function returning the table of content written in Markdown.
@@ -23,7 +63,7 @@ def build_toc(data):
     Args:
         data (list): list of dicts with the keys "title" and "fns".
             "title" contains the name of the section and "fns" contains the
-            name of the fonctions in the section.
+            name of the functions in the section.
     Returns:
         str: table of content written in Markdown.
     """
@@ -50,7 +90,7 @@ def build_docs(data):
     Args:
         data (list): list of dicts with the keys "title" and "fns".
             "title" contains the name of the section and "fns" contains the
-            name of the fonctions in the section.
+            name of the functions in the section.
     Returns:
         StringIO: documentation written in Markdown.
     """
@@ -66,40 +106,8 @@ def build_docs(data):
         p("### %s" % item["title"])
 
         for fn in item["fns"]:
-            fn_doc = get_function(fn)
-
             p()
-            p("#### %s" % fn_doc["name"])
-            p()
-            p(fn_doc["description"])
-
-            if fn_doc["article"] is not None:
-                p()
-                p("*Article*")
-                p("> " + fn_doc["article"])
-
-            if fn_doc["references"]:
-                p()
-                p("*References*")
-                p()
-                p(template_references(fn_doc))
-
-            for example in fn_doc["examples"]:
-                p()
-                p("```python")
-                p(example.description)
-                p("```")
-
-            p()
-            p("*Arguments*")
-            p()
-            p(template_params(fn_doc))
-
-            if fn_doc["returns"]:
-                p()
-                p("*Yields*" if fn_doc["returns"].is_generator else "*Returns*")
-                p()
-                p(template_return(fn_doc))
+            p(build_fn(fn))
 
     result = f.getvalue()
     f.close()

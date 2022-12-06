@@ -3,6 +3,7 @@
 # =============================================================================
 #
 from docdocdoc.build import (
+    build_fn,
     build_toc,
     build_docs,
 )

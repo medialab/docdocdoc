@@ -1,4 +1,4 @@
-from docdocdoc.build import build_docs, build_toc, generate_readme
+from docdocdoc.build import build_fn, build_toc, build_docs, generate_readme
 from docdocdoc.parts import (
     assembling_description,
     get_article,
@@ -13,8 +13,9 @@ DOCS = [
     {
         "title": "build",
         "fns": [
-            build_docs,
+            build_fn,
             build_toc,
+            build_docs,
             generate_readme,
         ]
     },

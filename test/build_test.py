@@ -1,7 +1,7 @@
 # =============================================================================
 # Docdocdoc Build Unit Tests
 # =============================================================================
-from docdocdoc import build_docs, build_toc
+from docdocdoc import build_docs, build_toc, build_fn
 
 
 def hello(name, city):
@@ -46,6 +46,26 @@ def hola():
     yield "hola"
 
 
+class Person:
+    """
+    A class to represent a person.
+
+    Args:
+        name (str): first name of the person. Defaults to ("Jean", "Baptiste").
+        surname (str): family name of the person.
+        age (int): age of the person. Prefer using `months` as unit.
+        opinion_on_cats_and_dogs (dict): whether the person likes cats and dogs. Defaults to {"cats": False, "dogs": True}.
+
+    """
+
+    def __init__(self, surname, age, name=("Jean", "Baptiste"), opinion_on_cats_and_dogs={"cats": False, "dogs": True}):
+
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.opinion_on_cats_and_dogs = opinion_on_cats_and_dogs
+
+
 DOCS_TEST = [
     {
         "title": "first part",
@@ -62,6 +82,16 @@ DOCS_TEST = [
     }
 ]
 
+EXPECTED_FN = """#### Person
+
+A class to represent a person.
+
+*Arguments*
+
+* **name** *str* `("Jean", "Baptiste")` - first name of the person.
+* **surname** *str* - family name of the person.
+* **age** *int* - age of the person. Prefer using `months` as unit.
+* **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs."""
 
 EXPECTED_TOC = """* [first part](#first-part)
   * [hello](#hello)
@@ -124,6 +154,12 @@ Note that it doesn't take any argument.
 
 *string* - \"hola\".
 """
+
+
+class TestBuildFn(object):
+    def test_basics(self):
+
+        assert build_fn(Person) == EXPECTED_FN
 
 
 class TestBuildToc(object):

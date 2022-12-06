@@ -15,8 +15,9 @@ pip install docdocdoc
 ## Usage
 
 * [build](#build)
-  * [build_docs](#build_docs)
+  * [build_fn](#build_fn)
   * [build_toc](#build_toc)
+  * [build_docs](#build_docs)
   * [generate_readme](#generate_readme)
 * [parts](#parts)
   * [assembling_description](#assembling_description)
@@ -31,19 +32,17 @@ pip install docdocdoc
 
 ### build
 
-#### build_docs
+#### build_fn
 
-Function returning the documentation written in Markdown.
+Function returning the function or class documentation written in Markdown.
 
 *Arguments*
 
-* **data** *list* - list of dicts with the keys "title" and "fns".
-"title" contains the name of the section and "fns" contains the
-name of the fonctions in the section.
+* **fn** *str* - str of the function's or class' name".
 
 *Returns*
 
-*StringIO* - documentation written in Markdown.
+*str* - unction or class documentation written in Markdown.
 
 #### build_toc
 
@@ -53,11 +52,25 @@ Function returning the table of content written in Markdown.
 
 * **data** *list* - list of dicts with the keys "title" and "fns".
 "title" contains the name of the section and "fns" contains the
-name of the fonctions in the section.
+name of the functions in the section.
 
 *Returns*
 
 *str* - table of content written in Markdown.
+
+#### build_docs
+
+Function returning the documentation written in Markdown.
+
+*Arguments*
+
+* **data** *list* - list of dicts with the keys "title" and "fns".
+"title" contains the name of the section and "fns" contains the
+name of the functions in the section.
+
+*Returns*
+
+*StringIO* - documentation written in Markdown.
 
 #### generate_readme
 
@@ -100,7 +113,7 @@ Function returning the article if the docstring has one, None otherwise.
 
 #### get_function
 
-Function returning a dict with the different part for a function documentation
+Function returning a dict with the different part for a function (or class) documentation
 (i.e. name, description, article...).
 
 *Arguments*
