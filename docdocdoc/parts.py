@@ -9,7 +9,7 @@ import re
 from docstring_parser.google import DEFAULT_SECTIONS, Section, SectionType
 from docstring_parser import parse as docstring_parser, DocstringStyle, DocstringMeta
 
-from docdocdoc.utils import collapse
+from docdocdoc.utils import collapse, clean_multiple, clean_line_break
 
 DEFAULT_SECTIONS.append(Section("Article", "article", SectionType.SINGULAR))
 DEFAULT_SECTIONS.append(Section("References", "references", SectionType.MULTIPLE))
@@ -30,7 +30,7 @@ def get_article(docstring):
     """
     for meta in docstring.meta:
         if type(meta) is DocstringMeta and meta.args == ["article"]:
-            return collapse(meta.description)
+            return clean_multiple(collapse(meta.description))
 
     return None
 
@@ -50,7 +50,7 @@ def get_references(docstring):
 
     for meta in docstring.meta:
         if type(meta) is DocstringMeta and meta.args[0] == "references":
-            references.append(meta.description)
+            references.append(clean_multiple(collapse(meta.description)))
 
     return references
 
@@ -75,13 +75,13 @@ def assembling_description(docstring):
         else:
             d += " " + docstring.long_description
 
-    return d.strip()
+    return clean_multiple(clean_line_break(d.strip()))
 
 
 def get_function(fn):
     """
-    Function returning a dict with the different part for a function (or class) documentation
-    (i.e. name, description, article...).
+    Function returning a dict with the different part for a function (or class)
+    documentation (i.e. name, description, article...).
 
     Args:
         fn (function): a function you defined.
@@ -156,9 +156,9 @@ def template_params(fn_doc):
 
         line += " - %s" % DEFAULT_RE.sub(".", param.description)
 
-        lines.append(line)
+        lines.append(collapse(line))
 
-    return "\n".join(lines)
+    return clean_multiple("\n".join(lines))
 
 
 def template_return(fn_doc):
@@ -175,4 +175,4 @@ def template_return(fn_doc):
     line = "*%s*" % fn_doc["returns"].type_name
     line += " - %s" % DEFAULT_RE.sub(".", fn_doc["returns"].description)
 
-    return line
+    return clean_multiple(collapse(line))

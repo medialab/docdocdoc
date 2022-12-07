@@ -38,11 +38,11 @@ Function returning the function or class documentation written in Markdown.
 
 *Arguments*
 
-* **fn** *str* - str of the function's or class' name".
+* **fn** *str* - str of the function or class name".
 
 *Returns*
 
-*str* - unction or class documentation written in Markdown.
+*str* - function or class documentation written in Markdown.
 
 #### build_toc
 
@@ -50,9 +50,7 @@ Function returning the table of content written in Markdown.
 
 *Arguments*
 
-* **data** *list* - list of dicts with the keys "title" and "fns".
-"title" contains the name of the section and "fns" contains the
-name of the functions in the section.
+* **data** *list* - list of dicts with the keys "title" and "fns". "title" contains the name of the section and "fns" contains the name of the functions in the section.
 
 *Returns*
 
@@ -64,9 +62,7 @@ Function returning the documentation written in Markdown.
 
 *Arguments*
 
-* **data** *list* - list of dicts with the keys "title" and "fns".
-"title" contains the name of the section and "fns" contains the
-name of the functions in the section.
+* **data** *list* - list of dicts with the keys "title" and "fns". "title" contains the name of the section and "fns" contains the name of the functions in the section.
 
 *Returns*
 
@@ -78,9 +74,7 @@ Function printing readme.
 
 *Arguments*
 
-* **data** *list* - list of dicts with the keys "title" and "fns".
-"title" contains the name of the section and "fns" contains the
-name of the fonctions in the section.
+* **data** *list* - list of dicts with the keys "title" and "fns". "title" contains the name of the section and "fns" contains the name of the fonctions in the section.
 
 ---
 
@@ -113,8 +107,8 @@ Function returning the article if the docstring has one, None otherwise.
 
 #### get_function
 
-Function returning a dict with the different part for a function (or class) documentation
-(i.e. name, description, article...).
+Function returning a dict with the different part for a function (or class)
+documentation (i.e. name, description, article.).
 
 *Arguments*
 

@@ -5,7 +5,7 @@
 from docdocdoc.build import (
     build_fn,
     build_toc,
-    build_docs,
+    build_docs
 )
 
 from docdocdoc.parts import (
@@ -15,5 +15,11 @@ from docdocdoc.parts import (
     template_params,
     template_references,
     template_return,
-    assembling_description,
+    assembling_description
+)
+
+from docdocdoc.utils import (
+    collapse,
+    clean_line_break,
+    clean_multiple
 )
