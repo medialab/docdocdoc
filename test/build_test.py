@@ -19,7 +19,7 @@ def hello(name, city):
     Returns:
         str: "hello from" city, followed by name.
     """
-    return "hello from {city}, {name}"
+    return f"hello from {city}, {name}"
 
 
 def hallo(name):
@@ -31,7 +31,7 @@ def hallo(name):
     Returns:
         string: "hello from" city, followed by name.
     """
-    return "hallo {name}"
+    return f"hallo {name}"
 
 
 def hola():
@@ -82,7 +82,8 @@ DOCS_TEST = [
     }
 ]
 
-EXPECTED_FN = """#### Person
+EXPECTED_FN = """\
+#### Person
 
 A class to represent a person.
 
@@ -91,15 +92,19 @@ A class to represent a person.
 * **name** *str* `("Jean", "Baptiste")` - first name of the person.
 * **surname** *str* - family name of the person.
 * **age** *int* - age of the person. Prefer using `months` as unit.
-* **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs."""
+* **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs.\
+"""
 
-EXPECTED_TOC = """* [first part](#first-part)
+EXPECTED_TOC = """\
+* [first part](#first-part)
   * [hello](#hello)
   * [hallo](#hallo)
 * [second part](#second-part)
-  * [hola](#hola)"""
+  * [hola](#hola)\
+"""
 
-EXPECTED_DOC = """
+EXPECTED_DOC = """\
+
 ---
 
 ### first part

@@ -1,8 +1,10 @@
 # =============================================================================
 # Docdocdoc Parts Unit Tests
 # =============================================================================
-from docdocdoc import get_function, template_params, template_references, template_return
 from pytest import raises
+from textwrap import dedent
+
+from docdocdoc import get_function, template_params, template_references, template_return
 
 
 def hello(name, city):
@@ -51,9 +53,19 @@ class TestTemplates(object):
 
         fn = get_function(hello)
 
-        assert template_references(fn) == "- https://www.pnas.org/content/pnas/106/16/6483.full.pdf\n- https://en.wikipedia.org/wiki/Disparity_filter_algorithm_of_weighted_network"
+        assert template_references(fn) == dedent(
+            """\
+                - https://www.pnas.org/content/pnas/106/16/6483.full.pdf
+                - https://en.wikipedia.org/wiki/Disparity_filter_algorithm_of_weighted_network
+            """
+        ).rstrip()
 
-        assert template_params(fn) == "* **name** *str* - string with the name you want to say hello to.\n* **city** *str* - string with the city you want to say hello from."
+        assert template_params(fn) == dedent(
+            """\
+                * **name** *str* - string with the name you want to say hello to.
+                * **city** *str* - string with the city you want to say hello from.
+            """
+        ).rstrip()
 
         assert template_return(fn) == "*str* - \"hello from\" city, followed by name."
 
@@ -61,7 +73,11 @@ class TestTemplates(object):
 
         my_class = get_function(Person)
 
-        assert template_params(my_class) == """* **name** *str* `("Jean", "Baptiste")` - first name of the person.
-* **surname** *str* - family name of the person.
-* **age** *int* - age of the person. Prefer using `months` as unit.
-* **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs."""
+        assert template_params(my_class) == dedent(
+            """\
+                * **name** *str* `("Jean", "Baptiste")` - first name of the person.
+                * **surname** *str* - family name of the person.
+                * **age** *int* - age of the person. Prefer using `months` as unit.
+                * **opinion_on_cats_and_dogs** *dict* `{"cats": False, "dogs": True}` - whether the person likes cats and dogs.
+            """
+        ).rstrip()
