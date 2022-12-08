@@ -5,7 +5,7 @@ with open("./README.md", "r") as f:
 
 setup(
     name="docdocdoc",
-    version="0.0.0",
+    version="0.1.0",
     description="A python library to template documentation from docstrings.",
     long_description=long_description,
     long_description_content_type="text/markdown",
