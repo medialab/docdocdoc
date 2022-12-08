@@ -1,5 +1,5 @@
 # Dependencies
-docstring-parser==0.13
+docstring-parser==0.15
 
 # Dev Dependencies
 importchecker==2.0
