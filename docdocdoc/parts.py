@@ -9,7 +9,7 @@ import re
 from docstring_parser.google import DEFAULT_SECTIONS, Section, SectionType
 from docstring_parser import parse as docstring_parser, DocstringStyle, DocstringMeta
 
-from docdocdoc.utils import collapse, clean_multiple, clean_line_break
+from docdocdoc.utils import collapse, clean_multiple, clean_line_break, escape
 
 DEFAULT_SECTIONS.append(Section("Article", "article", SectionType.SINGULAR))
 DEFAULT_SECTIONS.append(Section("References", "references", SectionType.MULTIPLE))
@@ -141,7 +141,7 @@ def template_params(fn_doc):
     lines = []
 
     for param in fn_doc["arguments"]:
-        line = "* **%s** " % param.arg_name
+        line = "* **%s** " % escape(param.arg_name)
 
         if param.type_name:
             if param.is_optional:

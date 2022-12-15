@@ -10,6 +10,8 @@ MULTIPLE_LINE_BREAK_RE = re.compile(r"\n\n\n+")
 
 MULTIPLE_RE = re.compile(r"([^a-zA-Z0-9#*/_\-\n])\1+")
 
+ESCAPE_RE = re.compile(r"([\[-\]\\\^\$\*\.])")
+
 
 def collapse(text):
     return text.replace("\n", " ").strip()
@@ -21,3 +23,7 @@ def clean_line_break(text):
 
 def clean_multiple(text):
     return MULTIPLE_RE.sub(r"\1", text)
+
+
+def escape(text):
+    return ESCAPE_RE.sub(r"\\\1", text)

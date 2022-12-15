@@ -1,7 +1,7 @@
 # =============================================================================
 # Docdocdoc Utils Unit Tests
 # =============================================================================
-from docdocdoc import collapse, clean_line_break, clean_multiple
+from docdocdoc import collapse, clean_line_break, clean_multiple, escape
 
 
 STRING_TO_COLLAPSE = """graph (nx.AnyGraph or ig.AnyGraph): networkx or igraph graph instance
@@ -83,6 +83,8 @@ Note that it doesn't take any argument.
 *string* - \"hola\".
 """
 
+ARG_TO_ESCAPE = "**kwarg"
+
 EXPECTED_STRING_TO_COLLAPSE = """graph (nx.AnyGraph or ig.AnyGraph): networkx or igraph graph instance to explore."""
 
 EXPECTED_STRING_LINE_BREAK = """This is a line.
@@ -92,6 +94,8 @@ An other paragraph.
 A new paragraph."""
 
 EXPECTED_MULTIPLE = "This is a sentence !"
+
+EXPECTED_ARG_TO_ESCAPE = "\\*\\*kwarg"
 
 
 class TestUtils(object):
@@ -109,3 +113,6 @@ class TestUtils(object):
         assert clean_multiple(STRING_MULTIPLE) == EXPECTED_MULTIPLE
 
         assert clean_multiple(STRING_MULTIPLE_NO_CHANGE) == STRING_MULTIPLE_NO_CHANGE
+
+    def test_escape(self):
+        assert escape(ARG_TO_ESCAPE) == EXPECTED_ARG_TO_ESCAPE

@@ -21,5 +21,6 @@ from docdocdoc.parts import (
 from docdocdoc.utils import (
     collapse,
     clean_line_break,
-    clean_multiple
+    clean_multiple,
+    escape
 )
